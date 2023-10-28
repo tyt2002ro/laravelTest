@@ -29,7 +29,7 @@ class InvoiceDataMapper
             'Company' => $this->companyDataMapper->mapToApiResponse($invoice->company),
             'Billed company' => $this->companyDataMapper->mapToApiResponse($invoice->billedCompany),
             'Products' => $this->parseMapProducts($invoice->products, $invoiceId),
-            'Total price' => $invoice->getTotalAmountAttribute(),
+            'Total price' => $invoice->getTotalAmountAttribute($invoiceId),
         ];
     }
 

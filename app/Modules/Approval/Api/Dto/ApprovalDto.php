@@ -7,7 +7,7 @@ namespace App\Modules\Approval\Api\Dto;
 use App\Domain\Enums\StatusEnum;
 use Ramsey\Uuid\UuidInterface;
 
-final readonly class ApprovalDto
+final class ApprovalDto
 {
     /** @param class-string $entity */
     public function __construct(

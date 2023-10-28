@@ -1,5 +1,7 @@
 <?php
+
 declare(strict_types=1);
+
 namespace App\Modules\Invoices\Domain;
 
 use Illuminate\Database\Eloquent\Model;
@@ -8,11 +10,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Invoice extends Model
 {
-
-    const STATUS_DRAFT = 'draft';
-    const STATUS_APPROVED = 'approved';
-    const STATUS_REJECTED = 'rejected';
-
     public function company(): BelongsTo
     {
         return $this->belongsTo(Company::class, 'company_id');
@@ -30,11 +27,15 @@ class Invoice extends Model
             ->wherePivot('invoice_id', $this->id);
     }
 
-    public function getTotalAmountAttribute(): float
+    public function getTotalAmountAttribute(string $invoiceId): float
     {
-        return $this->products->sum(function ($product) {
-            return $product->pivot->quantity * $product->price;
-        });
+        $total = 0;
+        foreach ($this->products as $product) {
+            if ($product->pivot->invoice_id === $invoiceId) {
+                $total = $total + ($product->pivot->quantity * $product->price);
+            }
+        }
+        return $total;
     }
 
     public function getNumber(): ?string

@@ -3,6 +3,7 @@
 use App\Modules\Invoices\Http\Controllers\InvoiceController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Modules\Approval\Http\Controllers\ApprovalController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,8 +20,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::group(['prefix' => 'invoices'], function () {
-    Route::get('/{invoiceId}', [InvoiceController::class, 'getInvoice'])->name('invoices.get');
-    Route::put('/{id}/approve', [InvoiceController::class, 'approveInvoice'])->name('invoices.approve');
-    Route::put('/{id}/reject', [InvoiceController::class, 'rejectInvoice'])->name('invoices.reject');
-});
+Route::get('/invoices/{invoiceId}', [InvoiceController::class, 'getInvoice']);
+
+Route::post('/approve-invoice/{id}', [ApprovalController::class, 'approveInvoice']);
+Route::post('/reject-invoice/{id}', [ApprovalController::class, 'rejectInvoice']);

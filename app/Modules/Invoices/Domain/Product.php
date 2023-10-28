@@ -1,9 +1,11 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Modules\Invoices\Domain;
 
 use Illuminate\Database\Eloquent\Model;
+
 class Product extends Model
 {
     protected $table = 'products';

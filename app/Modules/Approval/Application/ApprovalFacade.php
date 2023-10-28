@@ -37,7 +37,7 @@ final readonly class ApprovalFacade implements ApprovalFacadeInterface
 
     private function validate(ApprovalDto $dto): void
     {
-        if (StatusEnum::DRAFT !== StatusEnum::tryFrom($dto->status->value)) {
+        if (StatusEnum::DRAFT === StatusEnum::tryFrom($dto->status->value)) {
             throw new LogicException('approval status is already assigned');
         }
     }

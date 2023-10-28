@@ -4,6 +4,10 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\Providers;
 
+use App\Listeners\EntityApprovedListener;
+use App\Listeners\EntityRejectedListener;
+use App\Modules\Approval\Api\Events\EntityApproved;
+use App\Modules\Approval\Api\Events\EntityRejected;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -18,6 +22,12 @@ class EventServiceProvider extends ServiceProvider
     protected $listen = [
         Registered::class => [
             SendEmailVerificationNotification::class,
+        ],
+        EntityApproved::class => [
+            EntityApprovedListener::class,
+        ],
+        EntityRejected::class => [
+            EntityRejectedListener::class,
         ],
     ];
 
