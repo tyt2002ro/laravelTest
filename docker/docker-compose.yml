@@ -322,6 +322,7 @@ services:
         - MYSQL_USER=${MARIADB_USER}
         - MYSQL_PASSWORD=${MARIADB_PASSWORD}
         - MYSQL_ROOT_PASSWORD=${MARIADB_ROOT_PASSWORD}
+      command: --skip-grant-tables #only for local use to skip assigning rights to user in db
       networks:
         - backend
 
